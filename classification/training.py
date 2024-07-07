@@ -1,21 +1,15 @@
-from fitur_ekstrak import preprocess
-import h5py
-import numpy as np
 import os
 import warnings
-from sklearn.metrics import ConfusionMatrixDisplay, classification_report
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-import joblib
-warnings.filterwarnings('ignore')
 
-NUM_TREES = 100
-SEED = 9
-FIXED_SIZE = (500, 500)
-TRAIN_PATH = os.path.join('dataset', 'train')
-TEST_PATH = os.path.join('dataset', 'test')
-H5_TRAIN_DATA = os.path.join('output', 'train_data.h5')
-H5_TRAIN_LABELS = os.path.join('output', 'train_labels.h5')
+import h5py
+import joblib
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import ConfusionMatrixDisplay, classification_report
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
+
+from constans import TRAIN_PATH, TEST_PATH
+warnings.filterwarnings('ignore')
 
 # dapatkan training labels
 train_labels = os.listdir(TRAIN_PATH)
@@ -31,11 +25,11 @@ results = []
 names = []
 
 # import fitur vektor dan label yang telah ditrain
-h5f_data  = h5py.File(H5_TRAIN_DATA, 'r')
+h5f_data = h5py.File(H5_TRAIN_DATA, 'r')
 h5f_label = h5py.File(H5_TRAIN_LABELS, 'r')
 
 global_features_string = h5f_data['dataset_1']
-global_labels_string   = h5f_label['dataset_1']
+global_labels_string = h5f_label['dataset_1']
 
 global_features = np.array(global_features_string)
 global_labels = np.array(global_labels_string)
@@ -115,4 +109,4 @@ print(classification_report(encoded_y_test, y_predict))
 
 # save model
 model_name = 'rfc_model.sav'
-joblib.dump(model, os.path.join('output', model_name))
+joblib.dump(model, os.path.join('../output', model_name))

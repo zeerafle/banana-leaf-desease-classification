@@ -6,7 +6,7 @@ from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilename
 
 THICKNESS = 2
-PATH_MODEL = os.path.join('output', 'rfc_model.sav')
+PATH_MODEL = os.path.join('../output', 'rfc_model.sav')
 
 Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
 # show an "Open" dialog box and return the path to the selected file
